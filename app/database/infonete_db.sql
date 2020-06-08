@@ -10,7 +10,7 @@ primary key(id));
 create table Usuario(
 id integer,
 nombre_usuario varchar(50),
-contraseña varchar(50),
+contrasena varchar(50),
 nombre varchar(50),
 apellido varchar(50),
 correo varchar(50),

@@ -8,13 +8,15 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "${MYSQL_PORT}:3306"
     expose:
       - 3306
     volumes:
       - "${MYSQL_DATA}:/var/lib/mysql"
+      - "${MYSQL_INIT_FILES}:/docker-entrypoint-initdb.d"
+      - "${MYSQL_CONF}:/etc/mysql/conf.d/custom.cnf"
 
   PHP:
     image: php:${PHP_VERSION}

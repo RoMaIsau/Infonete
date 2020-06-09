@@ -15,6 +15,16 @@ class InicializadorDeModulos {
         return new ControladorHolaMundo($this->renderizador);
     }
 
+    public function crearControladorInicio() {
+        include_once ("controladores/ControladorInicio.php");
+        return new ControladorInicio($this->renderizador);
+    }
+
+    public function crearControladorLogin() {
+        include_once ("controladores/ControladorLogin.php");
+        return new ControladorLogin($this->renderizador);
+    }
+
     public function crearControladorDefault() {
         return $this->crearControladorHolaMundo();
     }

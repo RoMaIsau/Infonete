@@ -11,5 +11,5 @@
     RewriteRule ^infonete/(.*)/(.*)$ index.php?module=$1&action=$2 [L,QSA]
     RewriteRule ^infonete/(.*)$ index.php?module=$1&action=index [L,QSA]
     RewriteRule ^infonete$ index.php?module=inicio&action=index [L,QSA]
-    
+
 </IfModule>

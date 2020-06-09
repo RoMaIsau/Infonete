@@ -2,14 +2,18 @@
 <div class="content-general-inicio">
     <div class="content-inicio-crear">
         <a class="inicio" href="#">INICIO DE SESIÓN</a>
-        <a class="crear" href="registro.php">CREAR UNA CUENTA</a>
+        |
+        <a class="crear" href="/infonete/registro">CREAR UNA CUENTA</a>
     </div>
 
     <div class="content-form-inicio">
-        <form action="#" method="POST">
+        <form action="/infonete/login/ingresar" method="POST">
             <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email">
             <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password">
             <button class="ingreso-button" type="submit">INGRESAR</button>
+            {{#error}}
+            <div class="error">{{mensaje}}</div>
+            {{/error}}
         </form>
     </div>
 
@@ -20,5 +24,4 @@
     </div>
 
 </div>
-
 {{>footer}}

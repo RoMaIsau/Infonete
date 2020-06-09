@@ -12,9 +12,19 @@ class BaseDeDatos {
     public function query($sql){
         $result = mysqli_query($this->connexion, $sql);
 
-        $resultAsAssocArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $resultAsAssocArray = array();
+
+        if (isset($result) && $result->num_rows !== 0) {
+            $resultAsAssocArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        }
 
         return $resultAsAssocArray;
+    }
+
+    public function insert($sql) {
+        if (mysqli_query($this->connexion, $sql) == false) {
+            die("Error isertando datos: " . mysqli_error($this->connexion));
+        }
     }
 
     public function __destruct(){

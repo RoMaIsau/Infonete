@@ -28,7 +28,16 @@ class InicializadorDeModulos {
 
     public function crearControladorLogin() {
         include_once ("controladores/ControladorLogin.php");
-        return new ControladorLogin($this->renderizador);
+        include_once ("modelo/ModeloUsuario.php");
+        $modeloUsuario = new ModeloUsuario($this->baseDeDatos);
+        return new ControladorLogin($modeloUsuario, $this->renderizador);
+    }
+
+    public function crearControladorRegistro() {
+        include_once ("controladores/ControladorRegistro.php");
+        include_once ("modelo/ModeloUsuario.php");
+        $modeloUsuario = new ModeloUsuario($this->baseDeDatos);
+        return new ControladorRegistro($modeloUsuario, $this->renderizador);
     }
 
     public function crearControladorDefault() {

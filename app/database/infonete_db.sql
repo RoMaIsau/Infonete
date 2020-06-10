@@ -3,137 +3,136 @@ use infonete_db;
 /*drop database infonete_db;*/
 
 create table Rol(
-id integer,
+id integer AUTO_INCREMENT,
 descripcion varchar(50),
 primary key(id));
 
 create table Usuario(
-id integer,
-nombre_usuario varchar(50),
-contrasena varchar(50),
+id integer AUTO_INCREMENT,
+nombreUsuario varchar(50),
+contrasenia varchar(50),
 nombre varchar(50),
 apellido varchar(50),
 correo varchar(50),
-longitud varchar(50),
-latitud varchar(50),
+longitud decimal(9,6),
+latitud decimal(9,6),
 primary key(id)
 );
 
-create table Tiene_un(
+create table RolUsuario(
 idRol integer,
 idUsuario integer,
-primary key(idRol , idUsuario),
+primary key(idRol, idUsuario),
 foreign key(idRol) references Rol(id),
 foreign key(idUsuario) references Usuario(id));
 
-
 create table Tipo(
-id integer,
+id integer AUTO_INCREMENT,
 nombre varchar(50),
 primary key(id));
 
 create table Producto(
-id integer,
+id integer AUTO_INCREMENT,
 nombre varchar(50),
-usuario integer,
-tipo integer,
+idUsuario integer,
+idTipo integer,
 primary key(id),
-foreign key(usuario) references Usuario(id),
-foreign key(tipo) references Tipo(id));
+foreign key(idUsuario) references Usuario(id),
+foreign key(idTipo) references Tipo(id));
 
 create table Suscripcion(
-id integer,
+id integer AUTO_INCREMENT,
 fecha date,
 estado varchar(50),
-usuario integer,
-producto integer,
+idUsuario integer,
+idProducto integer,
 primary key(id),
-foreign key(usuario) references Usuario(id),
-foreign key(producto) references Producto(id));
+foreign key(idUsuario) references Usuario(id),
+foreign key(idProducto) references Producto(id));
 
-create table Pago_suscripcion(
-id integer,
+create table PagoSuscripcion(
+id integer AUTO_INCREMENT,
 periodo varchar(50),
-monto double,
+monto decimal(8,2),
 fecha date,
-suscripcion integer,
+idSuscripcion integer,
 primary key(id),
-foreign key(suscripcion) references Suscripcion(id));
+foreign key(idSuscripcion) references Suscripcion(id));
 
 create table Detalle(
-id integer,
+id integer AUTO_INCREMENT,
 fecha date,
-precio_mensual double,
-producto integer,
+precioMensual decimal(8,2),
+idProducto integer,
 primary key(id),
-foreign key(producto) references Producto(id));
+foreign key(idProducto) references Producto(id));
 
 create table Seccion(
-id integer,
+id integer AUTO_INCREMENT,
 nombre varchar(50),
-producto integer,
+idProducto integer,
 primary key(id),
-foreign key(producto) references Producto(id));
+foreign key(idProducto) references Producto(id));
 
 create table Edicion(
-id integer,
+id integer AUTO_INCREMENT,
 nro integer,
 fecha date,
-precio double,
-producto integer,
+precio decimal(8,2),
+idProducto integer,
 primary key(id),
-foreign key(producto) references Producto(id));
+foreign key(idProducto) references Producto(id));
 
-create table Pago_edicion(
-id integer,
+create table PagoEdicion(
+id integer AUTO_INCREMENT,
 fecha date,
-monto double,
-usuario integer,
-edicion integer,
+monto decimal(8,2),
+idUsuario integer,
+idEdicion integer,
 primary key(id),
-foreign key(usuario) references Usuario(id),
-foreign key(edicion) references Edicion(id));
+foreign key(idUsuario) references Usuario(id),
+foreign key(idEdicion) references Edicion(id));
 
 create table Noticia(
-id integer,
+id integer AUTO_INCREMENT,
 contenido varchar(100),
 subtitulo varchar(100),
 titulo varchar(100),
-link_video varchar(100),
-longitud varchar(100),
-latitud varchar(100),
+linkVideo varchar(100),
+longitud decimal(9,6),
+latitud decimal(9,6),
 link varchar(100),
-edicion integer,
-seccion integer,
+idEdicion integer,
+idSeccion integer,
 primary key(id),
-foreign key(edicion) references Edicion(id),
-foreign key(seccion) references Seccion(id));
+foreign key(idEdicion) references Edicion(id),
+foreign key(idSeccion) references Seccion(id));
 
 create table Imagen(
-id integer,
+id integer AUTO_INCREMENT,
 ubicacion varchar(100),
 primary key(id)
 );
 
-create table Posee(
-noticia integer,
-imagen integer,
-primary key(noticia, imagen),
-foreign key(noticia) references Noticia(id),
-foreign key(imagen) references Imagen(id));
+create table ImagenPorNoticia(
+idNoticia integer,
+idImagen integer,
+primary key(idNoticia, idImagen),
+foreign key(idNoticia) references Noticia(id),
+foreign key(idImagen) references Imagen(id));
 
-insert into Rol(id , descripcion)
+insert into Rol(id, descripcion)
 values
-(1,'Administrador'),
-(2,'Contenidista'),
-(3,'Lector');
+(1, 'Administrador'),
+(2, 'Contenidista'),
+(3, 'Lector');
 
-insert into Tipo(id,nombre)
+insert into Tipo(id, nombre)
 values
-(10,'Diario'),
-(20,'Revista');
+(1, 'Diario'),
+(2, 'Revista');
 
+INSERT INTO Usuario (id, nombreUsuario, contrasenia, nombre, apellido, correo)
+VALUES(1, 'infonete_admin', '4cdcf3c4bb966cce0206560fd2ba3b4a', 'Juan', 'Perez', 'juan.perez@infonete.com.ar');
 
-
-
-
+INSERT INTO RolUsuario(idRol, idUsuario) VALUE (1, 1);

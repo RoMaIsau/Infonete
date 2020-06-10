@@ -1,0 +1,38 @@
+.content-general-inicio{
+    margin-top: 20px;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    border-style: solid;
+}
+.content-registro{
+    display: flex;
+    justify-content: center;
+}
+h2{
+    font-weight: bold;
+    align-content: center;
+    display: block;
+}
+.content-form-inicio{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.formulario-crear-usuario{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.in-inp{
+    margin-bottom: 10px;
+}
+.ingreso-button{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.content-ubicacion{
+    display: flex;
+    flex-direction: column;
+}

@@ -3,8 +3,13 @@
     RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^infonete index.php
+
+    RewriteRule ^css/(.+)\.css /vistas/css/$1.css
+    RewriteRule ^img/(.+)\.(.+) /vistas/img/$1.$2
+
     RewriteRule ^infonete/(.*)/(.*)/(.*)$ index.php?module=$1&action=$2&$3 [L,QSA]
     RewriteRule ^infonete/(.*)/(.*)$ index.php?module=$1&action=$2 [L,QSA]
     RewriteRule ^infonete/(.*)$ index.php?module=$1&action=index [L,QSA]
+    RewriteRule ^infonete$ index.php?module=inicio&action=index [L,QSA]
+
 </IfModule>

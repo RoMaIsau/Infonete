@@ -129,6 +129,6 @@ values
 (2, 'Revista');
 
 INSERT INTO Usuario (id, nombreUsuario, contrasenia, nombre, apellido, correo)
-VALUES(1, 'infonete_admin', '4cdcf3c4bb966cce0206560fd2ba3b4a', 'Juan', 'Perez', 'juan.perez@infonete.com.ar');
+VALUES(1, 'infonete_admin', '7fc75b95650821b12f693dd77ed611f0', 'Juan', 'Perez', 'juan.perez@infonete.com.ar');
 
 INSERT INTO RolUsuario(idRol, idUsuario) VALUE (1, 1);

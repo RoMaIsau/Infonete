@@ -1,4 +1,9 @@
 <?php
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRegistro.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/excepciones/EmailEnUsoException.php");
+
 class ControladorRegistro {
 
     private $renderizador;
@@ -10,18 +15,25 @@ class ControladorRegistro {
     }
 
     public function index() {
-        echo $this->renderizador->renderizar( "vistas/registro.php");
+        $data["formularioRegistro"] = new FormularioDeRegistro();
+        echo $this->renderizador->renderizar( "vistas/registro.php", $data);
     }
 
     public function registrar() {
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $usuario = $_POST["usuario"];
-        $email = $_POST["email"];
-        $contraseniaUsuario = $_POST["password"];
 
-        $data["usuario"] = $this->modeloUsuario->registrar( $nombre, $apellido, $usuario, $email,$contraseniaUsuario);
-        echo $this->renderizador->renderizar( "vistas/registro.php");
+        $vista = "vistas/registro.php";
+        $formularioDeRegistro = Mapeador::mapearPost("FormularioDeRegistro");
+        $data["formularioRegistro"] = $formularioDeRegistro;
+        if ($formularioDeRegistro->contraseniasIguales()) {
+            try {
+                $this->modeloUsuario->registrar($formularioDeRegistro);
+            } catch (EmailEnUsoException $e) {
+                $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
+            }
+        } else{
+            $data["error"] = new MensajeDeError("Las contraseñas no coinciden");
+        }
+        echo $this->renderizador->renderizar($vista, $data);
     }
 }
 ?>

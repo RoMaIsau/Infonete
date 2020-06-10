@@ -5,14 +5,19 @@
     </div>
 
     <div class="content-form-inicio">
-        <form class="formulario-crear-usuario" action="/infonete/registro/registrar" method="POST">
-            <input class="in-inp" type="text" id="nombre" placeholder="Nombre" name="nombre">
-            <input class="in-inp" type="text" id="apellido" placeholder="Apellido" name="apellido">
-            <input class="in-inp" type="text" id="usuario" placeholder="Nombre de usuario" name="usuario">
-            <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email">
-            <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password">
-            <input class="in-inp" type="password" id="password" placeholder="Confirmar contraseña" name="password">
-            <button class="ingreso-button" type="submit">INGRESAR</button>
+        <form class="formulario-crear-usuario" action="/infonete/registro/registrar" method="POST" >
+            {{#formularioRegistro}}
+                <input class="in-inp" type="text" id="nombre" placeholder="Nombre" name="nombre" value="{{getNombre}}">
+                <input class="in-inp" type="text" id="apellido" placeholder="Apellido" name="apellido" value="{{getApellido}}">
+                <input class="in-inp" type="text" id="usuario" placeholder="Nombre de usuario" name="nombreUsuario" value="{{getNombreUsuario}}">
+                <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email" value="{{getEmail}}">
+                <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password" value="{{getPassword}}">
+                <input class="in-inp" type="password" id="password" placeholder="Confirmar contraseña" name="passwordRepetida" value="{{getPasswordRepetida}}">
+                <button class="ingreso-button" type="submit">INGRESAR</button>
+            {{/formularioRegistro}}
+            {{#error}}
+            <div class="error">{{mensaje}}</div>
+            {{/error}}
         </form>
 
         <div class="content-ubicacion">

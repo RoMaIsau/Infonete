@@ -23,8 +23,13 @@ class BaseDeDatos {
 
     public function insert($sql) {
         if (mysqli_query($this->connexion, $sql) == false) {
-            die("Error isertando datos: " . mysqli_error($this->connexion));
+            die("Error insertando datos: " . mysqli_error($this->connexion));
         }
+        return $this->getLastId();
+    }
+
+    private function getLastId() {
+        return mysqli_insert_id($this->connexion);
     }
 
     public function __destruct(){

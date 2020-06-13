@@ -20,3 +20,7 @@
 ```
 docker-compose up
 ```
+
+### Usuario administrador de pruebas
+- juan.perez@infonete.com.ar
+- Infonete2020

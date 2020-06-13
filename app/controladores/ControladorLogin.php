@@ -1,4 +1,8 @@
 <?php
+include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeLogin.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
+
 class ControladorLogin {
 
     private $renderizador;
@@ -14,18 +18,17 @@ class ControladorLogin {
     }
 
     public function ingresar() {
-        include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
 
-        $email = $_POST["email"];
-        $contraseniaUsuario = $_POST["password"];
+        $formularioDeLogin = Mapeador::mapearPost("FormularioDeLogin");
 
-        $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($email,$contraseniaUsuario);
+        $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeLogin->getEmail(), $formularioDeLogin->getPassword());
 
         if (empty($data["usuario"])){
             $data = array("error" => new MensajeDeError("Usuario o contraseña inválidos"));
             $vista = "vistas/login.php";
         } else {
             $vista = "vistas/inicio.php";
+            $this->renderizador->redirect("inicio");
         }
 
         echo $this->renderizador->renderizar($vista, $data);

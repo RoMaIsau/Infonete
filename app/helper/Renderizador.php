@@ -14,5 +14,10 @@ class Renderizador {
         $contentAsString =  file_get_contents($contentFile);
         return  $this->mustache->render($contentAsString, $data);
     }
+
+    public function redirect($modulo) {
+        header("Location: /infonete/" . $modulo);
+        exit();
+    }
 }
 ?>

@@ -16,3 +16,4 @@ abstract class Formulario {
         return in_array($campo, $this->obtenerTodosLosCampos());
     }
 }
+?>

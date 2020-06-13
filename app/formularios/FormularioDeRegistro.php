@@ -74,3 +74,4 @@ class FormularioDeRegistro extends Formulario {
         return $this->passwordRepetida;
     }
 }
+?>

@@ -8,7 +8,7 @@ class Mapeador {
             if ($formulario->seDebeMapear($campo)) {
                 self::mapearCampoEn($campo, $valor, $formulario);
                 if ($formulario->esRequerido($campo) && empty($valor)) {
-                    die("El campo " . $campo . " es obligatorio");
+                    $formulario->marcarCampoSinCompletar($campo);
                 }
             }
         }

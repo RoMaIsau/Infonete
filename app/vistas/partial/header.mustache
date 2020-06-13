@@ -29,7 +29,12 @@
                 <h1>InfoNete s.a.</h1>
             </div>
             <div class="content-buttons">
-                <a class="ing-button" href="/infonete/login">INGRESAR</a>
+                {{#usuario}}
+                    <a class="ing-button" href="/infonete/login/salir">SALIR</a>
+                {{/usuario}}
+                {{^usuario}}
+                    <a class="ing-button" href="/infonete/login">INGRESAR</a>
+                {{/usuario}}
                 <button type="submit">SUSCRIBITE</button>
             </div>
         </div>

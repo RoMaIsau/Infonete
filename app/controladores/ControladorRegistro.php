@@ -21,18 +21,24 @@ class ControladorRegistro {
 
     public function registrar() {
 
-        $vista = "vistas/registro.php";
         $formularioDeRegistro = Mapeador::mapearPost("FormularioDeRegistro");
+
+        $vista = "vistas/registro.php";
         $data["formularioRegistro"] = $formularioDeRegistro;
-        if ($formularioDeRegistro->contraseniasIguales()) {
-            try {
-                $this->modeloUsuario->registrar($formularioDeRegistro);
-            } catch (EmailEnUsoException $e) {
-                $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
+
+        if ($formularioDeRegistro->esInvalido() == false) {
+
+            if ($formularioDeRegistro->contraseniasIguales()) {
+                try {
+                    $this->modeloUsuario->registrar($formularioDeRegistro);
+                } catch (EmailEnUsoException $e) {
+                    $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
+                }
+            } else{
+                $data["error"] = new MensajeDeError("Las contraseñas no coinciden");
             }
-        } else{
-            $data["error"] = new MensajeDeError("Las contraseñas no coinciden");
         }
+
         echo $this->renderizador->renderizar($vista, $data);
     }
 }

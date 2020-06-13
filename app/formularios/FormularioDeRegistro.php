@@ -11,7 +11,7 @@ class FormularioDeRegistro extends Formulario {
     private $passwordRepetida;
 
     public function obtenerCamposRequeridos() {
-        return array("password", "passwordRepetida");
+        return array("nombre", "apellido", "password", "passwordRepetida");
     }
 
     public function obtenerTodosLosCampos() {

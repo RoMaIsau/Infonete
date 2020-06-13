@@ -14,7 +14,9 @@
                 <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password" value="{{getPassword}}">
                 <input class="in-inp" type="password" id="password" placeholder="Confirmar contraseña" name="passwordRepetida" value="{{getPasswordRepetida}}">
                 <button class="ingreso-button" type="submit">INGRESAR</button>
+                {{>erroresCamposRequeridos}}
             {{/formularioRegistro}}
+
             {{#error}}
             <div class="error">{{mensaje}}</div>
             {{/error}}

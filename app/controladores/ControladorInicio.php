@@ -10,7 +10,11 @@ class ControladorInicio {
     }
 
     public function index() {
-        echo $this->renderizador->renderizar( "vistas/inicio.php");
+        $data = array();
+        if (isset($_SESSION['usuario'])) {
+            $data['usuario'] = $_SESSION['usuario'];
+        }
+        echo $this->renderizador->renderizar( "vistas/inicio.php", $data);
     }
 }
 ?>

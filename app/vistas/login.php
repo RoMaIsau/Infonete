@@ -8,9 +8,12 @@
 
     <div class="content-form-inicio">
         <form action="/infonete/login/ingresar" method="POST">
-            <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email">
-            <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password">
-            <button class="ingreso-button" type="submit">INGRESAR</button>
+            {{#formularioDeLogin}}
+                <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email" value="{{getEmail}}">
+                <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password">
+                <button class="ingreso-button" type="submit">INGRESAR</button>
+                {{>erroresCamposRequeridos}}
+            {{/formularioDeLogin}}
             {{#error}}
             <div class="error">{{mensaje}}</div>
             {{/error}}

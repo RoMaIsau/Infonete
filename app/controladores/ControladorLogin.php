@@ -14,24 +14,40 @@ class ControladorLogin {
     }
 
     public function index() {
-        echo $this->renderizador->renderizar( "vistas/login.php");
+
+        if(isset($_SESSION["usuario"])) {
+            $this->renderizador->redirect("inicio");
+        }
+        $data["formularioDeLogin"] = new FormularioDeLogin();
+        echo $this->renderizador->renderizar( "vistas/login.php", $data);
     }
 
     public function ingresar() {
 
         $formularioDeLogin = Mapeador::mapearPost("FormularioDeLogin");
 
-        $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeLogin->getEmail(), $formularioDeLogin->getPassword());
+        $data["formularioDeLogin"] = $formularioDeLogin;
+        $vista = "vistas/login.php";
 
-        if (empty($data["usuario"])){
-            $data = array("error" => new MensajeDeError("Usuario o contraseña inválidos"));
-            $vista = "vistas/login.php";
-        } else {
-            $vista = "vistas/inicio.php";
-            $this->renderizador->redirect("inicio");
+        if ($formularioDeLogin->esInvalido() == false) {
+
+            $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeLogin->getEmail(),
+                $formularioDeLogin->getPassword());
+
+            if (empty($data["usuario"])){
+                $data["error"] = new MensajeDeError("Usuario o contraseña inválidos");
+            } else {
+                $_SESSION["usuario"] = $data["usuario"];
+                $this->renderizador->redirect("inicio");
+            }
         }
 
         echo $this->renderizador->renderizar($vista, $data);
+    }
+
+    public function salir() {
+        session_destroy();
+        $this->renderizador->redirect("inicio");
     }
 }
 ?>

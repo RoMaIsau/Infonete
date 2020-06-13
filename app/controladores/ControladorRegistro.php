@@ -15,6 +15,9 @@ class ControladorRegistro {
     }
 
     public function index() {
+        if(isset($_SESSION["usuario"])) {
+            $this->renderizador->redirect("inicio");
+        }
         $data["formularioRegistro"] = new FormularioDeRegistro();
         echo $this->renderizador->renderizar( "vistas/registro.php", $data);
     }
@@ -31,6 +34,10 @@ class ControladorRegistro {
             if ($formularioDeRegistro->contraseniasIguales()) {
                 try {
                     $this->modeloUsuario->registrar($formularioDeRegistro);
+                    $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeRegistro->getEmail(),
+                        $formularioDeRegistro->getPassword());
+                    $_SESSION["usuario"] = $data["usuario"];
+                    $this->renderizador->redirect("inicio");
                 } catch (EmailEnUsoException $e) {
                     $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
                 }

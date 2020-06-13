@@ -1,5 +1,5 @@
 {{>header}}
     {{#usuario}}
-        {{nombre}}
+    Hola {{nombre}} {{apellido}}
     {{/usuario}}
 {{>footer}}

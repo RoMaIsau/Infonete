@@ -1,0 +1,203 @@
+body{
+    margin:0;
+}
+
+.content-general{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.content-main{
+
+    display: flex;
+    flex-direction: column;
+}
+.content-top{
+    display: flex;
+    flex-direction: row;
+}
+.content-icons{
+   
+   display:flex;
+   flex-direction: row;
+   margin-right: 10px;
+   padding-top: 10px;
+}
+
+.content-icons #icon-principal{
+   
+   margin-right: 50px;
+   font-family: 'Varela Round', sans-serif;
+}
+
+.icon-cloud-sun-1:hover{
+    color:#EBC83D; 
+
+}
+
+.icon-dollar:hover{
+    color:#377D43;
+}
+
+.icon-truck:hover {
+   color:#238AB6;
+    }
+
+   .icon-calendar:hover{
+    color:#E86F29;
+   } 
+
+.icon-newspaper:hover{
+
+    color: #433cb6;
+ }
+
+.icon-basket-1{
+    font-size: 25px;
+    position: relative;
+    left: 405px;
+    padding-top: 10px;
+}
+
+
+.img-icono{
+    margin-left: 25px;
+}
+.content-down{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.content-h1{
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+}
+.content-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+h1{
+    font-size: 40px;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+a{
+    font-size: 17px;
+    text-decoration: none;
+}
+button{
+    font-size: 14px;
+    background-color: white;
+}
+button:hover{
+    background-color: black;
+    color: white;
+}
+
+/* -------------- HEADER -------------- */
+#marca{
+  font-family: 'Righteous', cursive;
+}
+
+#marca:hover{
+    color: #433cb6;
+}
+.icon-globe{
+    color: #433cb6;
+}
+.icon-globe{
+    font-size: 40px;
+    position: relative;
+    bottom: -26px;
+}
+
+
+/* -------------- NAVBAR -------------- */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+    flex-direction: row;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a#active {
+    background-color: #433cb6;
+    color: white;
+}
+.nav-buttons{
+    flex-grow: 2;
+}
+
+.nav-buttons a{
+    /*font-family: 'News Cycle', sans-serif;*/
+    font-family: 'News Cycle', sans-serif;
+}
+.content-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+input{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+input:hover{
+    background-color: #acc4ff;
+}
+
+form input{
+   position: relative;
+   left:-20px; 
+   width: 200px; 
+}
+
+#suscripcion{
+    border: grey 1px solid;
+}
+
+.ing-button{
+    font-family:'Arial';
+    color:black;
+}
+
+/* -------------- NEWS -------------- */
+.content-news{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: 'Frank Ruhl Libre', serif;
+}
+.content-noticia{
+    padding: 15px;
+}
+
+/* ------------- FOOTER ------------- */
+.content-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding-top: 10px;
+}

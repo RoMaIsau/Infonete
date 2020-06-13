@@ -1,0 +1,20 @@
+.content-sections{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+#section-button{
+    width: 60%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border: none;
+    border: grey 1px solid;
+    font-family: 'Varela Round', sans-serif;
+
+}

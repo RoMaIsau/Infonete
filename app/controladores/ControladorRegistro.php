@@ -34,7 +34,7 @@ class ControladorRegistro {
             if ($formularioDeRegistro->contraseniasIguales()) {
                 try {
                     $this->modeloUsuario->registrar($formularioDeRegistro);
-                    $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeRegistro->getEmail(),
+                    $data["usuario"] = $this->modeloUsuario->login($formularioDeRegistro->getEmail(),
                         $formularioDeRegistro->getPassword());
                     $_SESSION["usuario"] = $data["usuario"];
                     $this->renderizador->redirect("inicio");

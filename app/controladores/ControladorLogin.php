@@ -29,9 +29,9 @@ class ControladorLogin {
         $data["formularioDeLogin"] = $formularioDeLogin;
         $vista = "vistas/login.php";
 
-        if ($formularioDeLogin->esInvalido() == false) {
+        if (!$formularioDeLogin->esInvalido()) {
 
-            $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeLogin->getEmail(),
+            $data["usuario"] = $this->modeloUsuario->login($formularioDeLogin->getEmail(),
                 $formularioDeLogin->getPassword());
 
             if (empty($data["usuario"])){

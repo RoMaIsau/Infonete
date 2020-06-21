@@ -15,7 +15,7 @@ class ModeloUsuario {
             throw new LoginInvalidoException();
         }
         $roles = $this->obtenerRolesDelUsuario($usuario);
-        return new UsuarioLogueado($usuario[0]['nombre'], $usuario[0]['apellido'], $usuario[0]['correo'], $roles);
+        return new UsuarioLogueado($usuario['id'], $usuario['nombre'], $usuario['apellido'], $usuario['correo'], $roles);
     }
 
     public function registrar($formularioDeRegistro) {
@@ -51,8 +51,8 @@ class ModeloUsuario {
 
     private function buscarPorCorreoYContrasenia($correo, $password) {
         $contraseniaEncriptada = md5($password);
-        $consulta = Consultas::OBTENER_USUARIO_POR_CORREO_Y_PASSWORD($correo, $contraseniaEncriptada);
-        return $this->conexion->query($consulta);
+        $resultado = $this->conexion->query(Consultas::OBTENER_USUARIO_POR_CORREO_Y_PASSWORD($correo, $contraseniaEncriptada));
+        return $resultado[0];
     }
 
     private function crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contrasenia, $idRol) {
@@ -79,7 +79,7 @@ class ModeloUsuario {
     }
 
     private function obtenerRolesDelUsuario($usuario) {
-        $consulta = Consultas::OBTENER_ROLES_DE_USUARIO($usuario[0]['id']);
+        $consulta = Consultas::OBTENER_ROLES_DE_USUARIO($usuario['id']);
         $resultado = $this->conexion->query($consulta);
         $roles = array();
 

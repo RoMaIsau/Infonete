@@ -2,16 +2,22 @@
 
 
 class UsuarioLogueado {
+    private $id;
     private $roles;
     private $correo;
     private $nombre;
     private $apellido;
 
-    public function __construct($nombre, $apellido, $correo, $roles) {
+    public function __construct($id, $nombre, $apellido, $correo, $roles) {
+        $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->correo = $correo;
         $this->roles = $roles;
+    }
+
+    public function id() {
+        return $this->id;
     }
 
     public function nombre() {

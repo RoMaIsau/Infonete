@@ -3,6 +3,8 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRegistro.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/excepciones/EmailEnUsoException.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/UsuarioLogueado.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Rol.php");
 
 class ControladorRegistro {
 
@@ -19,6 +21,8 @@ class ControladorRegistro {
             $this->renderizador->redirect("inicio");
         }
         $data["formularioRegistro"] = new FormularioDeRegistro();
+        $data["rol"] = $this->modeloUsuario->obtenerRolLector();
+
         echo $this->renderizador->renderizar( "vistas/registro.php", $data);
     }
 
@@ -34,9 +38,9 @@ class ControladorRegistro {
             if ($formularioDeRegistro->contraseniasIguales()) {
                 try {
                     $this->modeloUsuario->registrar($formularioDeRegistro);
-                    $data["usuario"] = $this->modeloUsuario->buscarPorCorreoYContrasenia($formularioDeRegistro->getEmail(),
+                    $usuario = $this->modeloUsuario->login($formularioDeRegistro->getEmail(),
                         $formularioDeRegistro->getPassword());
-                    $_SESSION["usuario"] = $data["usuario"];
+                    $_SESSION["usuario"] = serialize($usuario);
                     $this->renderizador->redirect("inicio");
                 } catch (EmailEnUsoException $e) {
                     $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
@@ -45,7 +49,6 @@ class ControladorRegistro {
                 $data["error"] = new MensajeDeError("Las contraseñas no coinciden");
             }
         }
-
         echo $this->renderizador->renderizar($vista, $data);
     }
 }

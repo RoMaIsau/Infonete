@@ -1,4 +1,5 @@
 <?php
+include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Consultas.php");
 
 class ModeloUsuario {
     private $conexion;
@@ -7,11 +8,14 @@ class ModeloUsuario {
         $this->conexion = $baseDeDatos;
     }
 
-    public function buscarPorCorreoYContrasenia($correo, $password) {
-        $contraseniaEncriptada = md5($password);
-        $usuario = $this->conexion->query("SELECT * FROM Usuario WHERE correo = '$correo' AND contrasenia = '$contraseniaEncriptada'");
+    public function login($correo, $contrasenia){
+        $usuario = $this->buscarPorCorreoYContrasenia($correo, $contrasenia);
 
-        return $usuario;
+        if (empty($usuario)) {
+            throw new LoginInvalidoException();
+        }
+        $roles = $this->obtenerRolesDelUsuario($usuario);
+        return new UsuarioLogueado($usuario[0]['nombre'], $usuario[0]['apellido'], $usuario[0]['correo'], $roles);
     }
 
     public function registrar($formularioDeRegistro) {
@@ -21,25 +25,71 @@ class ModeloUsuario {
         $nombreUsuario = $formularioDeRegistro->getNombreUsuario();
         $email = $formularioDeRegistro->getEmail();
         $contraseniaEncriptada = md5($formularioDeRegistro->getPassword());
+        $rol = $formularioDeRegistro->getRol();
 
         if ($this->validarEmailDisponible($email)) {
-
-            $idUsuario = $this->conexion->insert("INSERT INTO Usuario (nombre, apellido, nombreUsuario, correo, contrasenia) 
-                VALUES ('$nombre', '$apellido', '$nombreUsuario', '$email', '$contraseniaEncriptada')");
-
-            $resultado = $this->conexion->query("SELECT id FROM Rol WHERE descripcion = 'Lector'");
-            $idRol = $resultado[0]['id'];
-            $this->conexion->insert("INSERT INTO RolUsuario (idRol, idUsuario) 
-            VALUES ($idRol, $idUsuario)");
-
+            $this->crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contraseniaEncriptada, $rol);
         }   else {
             throw new EmailEnUsoException();
         }
     }
 
-    private function validarEmailDisponible($email) {
-        $resultado = $this->conexion->query("SELECT COUNT(*) AS usuariosConEmail FROM Usuario WHERE correo = '$email'");
+    public function obtenerRolLector() {
+        return $this->obtenerRolPorDescripcion("Lector");
+    }
+
+    public function listarRoles() {
+        $consulta = Consultas::OBTENER_ROLES();
+        $resultado = $this->conexion->query($consulta);
+        $roles = array();
+        for($i = 0; $i < count($resultado); $i++) {
+            $rol = $resultado[$i];
+            array_push($roles, new Rol($rol['id'], $rol['descripcion']));
+        }
+        return $roles;
+    }
+
+    private function buscarPorCorreoYContrasenia($correo, $password) {
+        $contraseniaEncriptada = md5($password);
+        $consulta = Consultas::OBTENER_USUARIO_POR_CORREO_Y_PASSWORD($correo, $contraseniaEncriptada);
+        return $this->conexion->query($consulta);
+    }
+
+    private function crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contrasenia, $idRol) {
+        $consulta = Consultas::INSERTAR_USUARIO($nombre, $apellido, $nombreUsuario, $email, $contrasenia);
+        $idUsuario = $this->conexion->insert($consulta);
+        $this->agregarRolUsuario($idRol, $idUsuario);
+    }
+
+    private function obtenerRolPorDescripcion($descripcion) {
+        $consulta = Consultas::OBTENER_ROL_POR_DESCRIPCION($descripcion);
+        $resultado = $this->conexion->query($consulta);
+        return  new Rol($resultado[0]['id'], $resultado[0]['descripcion']);
+    }
+
+    private function agregarRolUsuario($idRol, $idUsuario) {
+        $consulta = Consultas::INSERTAR_ROL_USUARIO($idRol, $idUsuario);
+        $this->conexion->insert($consulta);
+    }
+
+    private function validarEmailDisponible($correo) {
+        $consulta = Consultas::CONTAR_USUARIOS_CON_CORREO($correo);
+        $resultado = $this->conexion->query($consulta);
         return $resultado[0]['usuariosConEmail'] == 0;
     }
+
+    private function obtenerRolesDelUsuario($usuario) {
+        $consulta = Consultas::OBTENER_ROLES_DE_USUARIO($usuario[0]['id']);
+        $resultado = $this->conexion->query($consulta);
+        $roles = array();
+
+        for($i = 0; $i < count($resultado); $i++) {
+            $rol = $resultado[$i];
+            array_push($roles, $rol['rol']);
+        }
+        return $roles;
+    }
+
+
 }
 ?>

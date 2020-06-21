@@ -9,11 +9,12 @@ class ModeloUsuario {
 
     public function login($correo, $contrasenia){
         $usuario = $this->buscarPorCorreoYContrasenia($correo, $contrasenia);
-        if (!empty($usuario)) {
-            $roles = $this->obtenerRolesDelUsuario($usuario);
-            $usuario['roles'] = $roles;
+
+        if (empty($usuario)) {
+
         }
-        return $usuario;
+        $roles = $this->obtenerRolesDelUsuario($usuario);
+        return new UsuarioLogueado($usuario[0]['nombre'], $usuario[0]['apellido'], $usuario[0]['correo'], $roles);
     }
 
     public function registrar($formularioDeRegistro) {

@@ -1,5 +1,5 @@
 <?php
-
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/UsuarioLogueado.php");
 
 class ControladorInicio {
 
@@ -12,7 +12,7 @@ class ControladorInicio {
     public function index() {
         $data = array();
         if (isset($_SESSION['usuario'])) {
-            $data['usuario'] = $_SESSION['usuario'];
+            $data['usuario'] = unserialize($_SESSION['usuario']);
         }
         echo $this->renderizador->renderizar( "vistas/inicio.php", $data);
     }

@@ -2,6 +2,7 @@
 include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeLogin.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/UsuarioLogueado.php");
 
 class ControladorLogin {
 
@@ -33,13 +34,8 @@ class ControladorLogin {
 
             $data["usuario"] = $this->modeloUsuario->login($formularioDeLogin->getEmail(),
                 $formularioDeLogin->getPassword());
-
-            if (empty($data["usuario"])){
-                $data["error"] = new MensajeDeError("Usuario o contraseña inválidos");
-            } else {
-                $_SESSION["usuario"] = $data["usuario"];
-                $this->renderizador->redirect("inicio");
-            }
+            $_SESSION["usuario"] = serialize($data["usuario"]);
+            $this->renderizador->redirect("inicio");
         }
 
         echo $this->renderizador->renderizar($vista, $data);

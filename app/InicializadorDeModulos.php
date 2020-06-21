@@ -4,6 +4,7 @@ include_once ("helper/BaseDeDatos.php");
 include_once ("helper/Configuracion.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
+
 class InicializadorDeModulos {
 
     private $renderizador;
@@ -42,6 +43,13 @@ class InicializadorDeModulos {
 
     public function crearControladorDefault() {
         return $this->crearControladorHolaMundo();
+    }
+
+    public function crearControladorAdministracion() {
+        include_once ("controladores/ControladorAdministracion.php");
+        include_once ("modelo/ModeloUsuario.php");
+        $modeloUsuario = new ModeloUsuario($this->baseDeDatos);
+        return new ControladorAdministracion($modeloUsuario, $this->renderizador);
     }
 }
 ?>

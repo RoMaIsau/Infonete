@@ -48,6 +48,11 @@
                 <a href="secciones.php">SECCIONES</a>
                 <a href="nacional.php">NACIONAL</a>
                 <a href="internacional.php">INTERNACIONAL</a>
+                {{#usuario}}
+                    {{#esAdministrador}}
+                        <a href="/infonete/administracion">USUARIOS</a>
+                    {{/esAdministrador}}
+                {{/usuario}}
             </div>
             <div class="content-form">
                 <form action="#" method="">

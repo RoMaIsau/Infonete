@@ -54,7 +54,9 @@ class InicializadorDeModulos {
 
     public function crearControladorContenidista() {
         include_once ("controladores/ControladorContenidista.php");
-        return new ControladorContenidista($this->renderizador);
+        include_once ("modelo/ModeloProducto.php");
+        $modeloProducto = new ModeloProducto($this->baseDeDatos);
+        return new ControladorContenidista($modeloProducto, $this->renderizador);
     }
 }
 ?>

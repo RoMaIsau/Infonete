@@ -72,7 +72,14 @@ class ModeloUsuario {
 
     private function obtenerRolesDelUsuario($usuario) {
         $consulta = Consultas::OBTENER_ROLES_DE_USUARIO($usuario[0]['id']);
-        return $this->conexion->query($consulta);
+        $resultado = $this->conexion->query($consulta);
+        $roles = array();
+
+        for($i = 0; $i < count($resultado); $i++) {
+            $rol = $resultado[$i];
+            array_push($roles, $rol['rol']);
+        }
+        return $roles;
     }
 }
 ?>

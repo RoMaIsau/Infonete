@@ -12,7 +12,7 @@ class ModeloUsuario {
         $usuario = $this->buscarPorCorreoYContrasenia($correo, $contrasenia);
 
         if (empty($usuario)) {
-
+            throw new LoginInvalidoException();
         }
         $roles = $this->obtenerRolesDelUsuario($usuario);
         return new UsuarioLogueado($usuario[0]['nombre'], $usuario[0]['apellido'], $usuario[0]['correo'], $roles);

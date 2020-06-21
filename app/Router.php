@@ -17,8 +17,16 @@ class Router {
     }
 
     private static function ejecutarAccion($controlador, $accion){
+        self::ejecutarPreAccion($controlador);
         $accionValida = method_exists($controlador, $accion) ? $accion : "index";
         call_user_func(array($controlador, $accionValida));
+    }
+
+    private static function ejecutarPreAccion($controlador) {
+        $preAccion = "preAccion";
+        if (method_exists($controlador, $preAccion)) {
+            call_user_func(array($controlador, $preAccion));
+        }
     }
 }
 ?>

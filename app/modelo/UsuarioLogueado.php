@@ -34,6 +34,10 @@ class UsuarioLogueado {
         return $this->tieneRol("ADMINISTRADOR");
     }
 
+    public function esContenidista() {
+        return $this->tieneRol("CONTENIDISTA");
+    }
+
     public function esLector() {
         return $this->tieneRol("LECTOR");
     }

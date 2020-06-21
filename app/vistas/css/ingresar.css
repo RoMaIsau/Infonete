@@ -1,10 +1,12 @@
 .content-general-inicio{
-    margin-top: 20px;
+    top: 20px;
+    position: relative;
     display: block;
     flex-direction: column;
     justify-content: center;
     width: 70%;
     border-style: solid;
+    margin:auto;
 }
 .content-inicio-crear{
     margin-top: 10px;
@@ -15,13 +17,16 @@
 }
 .content-inicio-crear a{
     display: block;
+
 }
 .inicio{
     font-weight: bold;
     color: black;
+    font-family: 'News Cycle', sans-serif;
 }
 .crear{
     color: black;
+    font-family: 'News Cycle', sans-serif;
 }
 .content-form-inicio{
     display: flex;
@@ -40,6 +45,9 @@ form{
 .ingreso-button{
     margin-top: 20px;
     width: 48%;
+    border: grey 1px solid;
+    font-family: 'Varela Round', sans-serif;
+    height: 30px;
 }
 
 hr {
@@ -58,6 +66,10 @@ hr {
     background-color: black;
     color: white;
     margin-bottom: 20px;
+    border: grey 1px solid;
+    font-family: 'Varela Round', sans-serif;
+    height: 30px;
+
 }
 .ingreso-gmail:hover{
     background-color: white;

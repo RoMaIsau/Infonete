@@ -4,6 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/estilo.css">
 <link rel="stylesheet" href="/css/infonete.css">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=News+Cycle&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/fontello.css">
+<head>
 <head>
     <meta charset="utf-8">
     <title>INFONETE | PW2</title>
@@ -14,20 +21,21 @@
     <div class="content-main">
         <div class="content-top">
             <div class="content-icons">
-                <img class="img-icono" src="/img/clima.png" alt="clima" width="214" height="55">
-                <img class="img-icono" src="/img/transito.png" alt="transito" width="50.5" height="55">
-                <img class="img-icono" src="/img/dolar.png" alt="dolar" width="50.5" height="55">
-                <img class="img-icono" src="/img/tapa.png" alt="tapa" width="50.5" height="55">
-                <img class="img-icono" src="/img/fecha.png" alt="fecha" width="50.5" height="55">
+                <div class="icon-cloud-sun-1" id="icon-principal">16.1 Buenos Aires</div>
+                <div class="icon-truck" id="icon-principal">Transito</div>
+                <div class="icon-dollar" id="icon-principal">Dolar</div>
+                <div class="icon-newspaper" id="icon-principal">Tapa</div>
+                <div class="icon-calendar" id="icon-principal">Fecha de Cobro</div>
             </div>
             <div class="content-carrito">
-                <img class="imgCarrito" src="/img/carrito.png" alt="carrito" width="50.5" height="55">
+                <div class="icon-basket-1"></div>
             </div>
         </div>
         <div class="content-down">
             <div class="content-h1">
-                <h1>InfoNete s.a.</h1>
+                <h1 id="marca">INFONETE <!--s.a.--></h1><div class="icon-globe"></div> 
             </div>
+
             <div class="content-buttons">
                 {{#usuario}}
                     <a class="ing-button" href="/infonete/login/salir">SALIR</a>
@@ -35,16 +43,15 @@
                 {{^usuario}}
                     <a class="ing-button" href="/infonete/login">INGRESAR</a>
                 {{/usuario}}
-                <button type="submit">SUSCRIBITE</button>
+                <button type="submit" id="suscripcion">SUSCRIBITE</button>
             </div>
         </div>
     </div>
-
-
+    
     <div class="content-navbar">
         <div class="topnav">
             <div class="nav-buttons">
-                <a class="active" href="index.php">ULTIMAS NOTICIAS</a>
+                <a id="active" href="index.php" class="icon-article-alt">ULTIMAS NOTICIAS</a>
                 <a href="secciones.php">SECCIONES</a>
                 <a href="nacional.php">NACIONAL</a>
                 <a href="internacional.php">INTERNACIONAL</a>

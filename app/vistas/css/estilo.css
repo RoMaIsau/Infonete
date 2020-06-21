@@ -1,3 +1,7 @@
+body{
+    margin:0;
+}
+
 .content-general{
     display: flex;
     flex-direction: column;
@@ -15,8 +19,49 @@
     flex-direction: row;
 }
 .content-icons{
-    flex-grow: 2;
+   
+   display:flex;
+   flex-direction: row;
+   margin-right: 10px;
+   padding-top: 10px;
 }
+
+.content-icons #icon-principal{
+   
+   margin-right: 50px;
+   font-family: 'Varela Round', sans-serif;
+}
+
+.icon-cloud-sun-1:hover{
+    color:#EBC83D; 
+
+}
+
+.icon-dollar:hover{
+    color:#377D43;
+}
+
+.icon-truck:hover {
+   color:#238AB6;
+    }
+
+   .icon-calendar:hover{
+    color:#E86F29;
+   } 
+
+.icon-newspaper:hover{
+
+    color: #433cb6;
+ }
+
+.icon-basket-1{
+    font-size: 25px;
+    position: relative;
+    left: 405px;
+    padding-top: 10px;
+}
+
+
 .img-icono{
     margin-left: 25px;
 }
@@ -53,6 +98,23 @@ button:hover{
     color: white;
 }
 
+/* -------------- HEADER -------------- */
+#marca{
+  font-family: 'Righteous', cursive;
+}
+
+#marca:hover{
+    color: #433cb6;
+}
+.icon-globe{
+    color: #433cb6;
+}
+.icon-globe{
+    font-size: 40px;
+    position: relative;
+    bottom: -26px;
+}
+
 
 /* -------------- NAVBAR -------------- */
 .topnav {
@@ -76,12 +138,17 @@ button:hover{
     color: black;
 }
 
-.topnav a.active {
+.topnav a#active {
     background-color: #433cb6;
     color: white;
 }
 .nav-buttons{
     flex-grow: 2;
+}
+
+.nav-buttons a{
+    /*font-family: 'News Cycle', sans-serif;*/
+    font-family: 'News Cycle', sans-serif;
 }
 .content-form{
     display: flex;
@@ -97,6 +164,20 @@ input:hover{
     background-color: #acc4ff;
 }
 
+form input{
+   position: relative;
+   left:-20px; 
+   width: 200px; 
+}
+
+#suscripcion{
+    border: grey 1px solid;
+}
+
+.ing-button{
+    font-family:'Arial';
+    color:black;
+}
 
 /* -------------- NEWS -------------- */
 .content-news{
@@ -104,6 +185,7 @@ input:hover{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    font-family: 'Frank Ruhl Libre', serif;
 }
 .content-noticia{
     padding: 15px;

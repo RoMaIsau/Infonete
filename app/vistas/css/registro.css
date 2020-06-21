@@ -14,11 +14,14 @@ h2{
     font-weight: bold;
     align-content: center;
     display: block;
+     font-family: 'News Cycle', sans-serif;
 }
 .content-form-inicio{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin: auto;
+
 }
 .formulario-crear-usuario{
     display: flex;
@@ -31,8 +34,16 @@ h2{
 .ingreso-button{
     margin-top: 10px;
     margin-bottom: 20px;
+    border: grey 1px solid;
+    font-family: 'Varela Round', sans-serif;
+    height: 30px;
+    margin-left: -20px;
 }
 .content-ubicacion{
     display: flex;
     flex-direction: column;
+}
+
+h3{
+     font-family: 'News Cycle', sans-serif;
 }

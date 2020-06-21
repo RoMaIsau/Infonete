@@ -13,6 +13,9 @@
                 <input class="in-inp" type="email" id="email" placeholder="Dirección de correo electrónico" name="email" value="{{getEmail}}">
                 <input class="in-inp" type="password" id="password" placeholder="Contraseña" name="password" value="{{getPassword}}">
                 <input class="in-inp" type="password" id="password" placeholder="Confirmar contraseña" name="passwordRepetida" value="{{getPasswordRepetida}}">
+                {{#rol}}
+                    <input type="hidden" name="rol" value="{{id}}">
+                {{/rol}}
                 <button class="ingreso-button" type="submit">INGRESAR</button>
                 {{>erroresCamposRequeridos}}
             {{/formularioRegistro}}

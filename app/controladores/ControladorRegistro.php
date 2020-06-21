@@ -4,6 +4,7 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRegistro.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/excepciones/EmailEnUsoException.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/UsuarioLogueado.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Rol.php");
 
 class ControladorRegistro {
 
@@ -20,6 +21,8 @@ class ControladorRegistro {
             $this->renderizador->redirect("inicio");
         }
         $data["formularioRegistro"] = new FormularioDeRegistro();
+        $data["rol"] = $this->modeloUsuario->obtenerRolLector();
+
         echo $this->renderizador->renderizar( "vistas/registro.php", $data);
     }
 
@@ -46,7 +49,6 @@ class ControladorRegistro {
                 $data["error"] = new MensajeDeError("Las contraseñas no coinciden");
             }
         }
-
         echo $this->renderizador->renderizar($vista, $data);
     }
 }

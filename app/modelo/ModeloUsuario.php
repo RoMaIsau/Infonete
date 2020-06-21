@@ -1,5 +1,6 @@
 <?php
 include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Consultas.php");
+
 class ModeloUsuario {
     private $conexion;
 
@@ -24,12 +25,28 @@ class ModeloUsuario {
         $nombreUsuario = $formularioDeRegistro->getNombreUsuario();
         $email = $formularioDeRegistro->getEmail();
         $contraseniaEncriptada = md5($formularioDeRegistro->getPassword());
+        $rol = $formularioDeRegistro->getRol();
 
         if ($this->validarEmailDisponible($email)) {
-            $this->crearUsuarioLector($nombre, $apellido, $nombreUsuario, $email, $contraseniaEncriptada);
+            $this->crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contraseniaEncriptada, $rol);
         }   else {
             throw new EmailEnUsoException();
         }
+    }
+
+    public function obtenerRolLector() {
+        return $this->obtenerRolPorDescripcion("Lector");
+    }
+
+    public function listarRoles() {
+        $consulta = Consultas::OBTENER_ROLES();
+        $resultado = $this->conexion->query($consulta);
+        $roles = array();
+        for($i = 0; $i < count($resultado); $i++) {
+            $rol = $resultado[$i];
+            array_push($roles, new Rol($rol['id'], $rol['descripcion']));
+        }
+        return $roles;
     }
 
     private function buscarPorCorreoYContrasenia($correo, $password) {
@@ -38,25 +55,16 @@ class ModeloUsuario {
         return $this->conexion->query($consulta);
     }
 
-    private function crearUsuarioLector($nombre, $apellido, $nombreUsuario, $email, $contrasenia) {
-        $idUsuario = $this->crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contrasenia);
-        $idRolLector = $this->obtenerRolLector();
-        $this->agregarRolUsuario($idRolLector, $idUsuario);
-    }
-
-    private function crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contrasenia) {
+    private function crearUsuario($nombre, $apellido, $nombreUsuario, $email, $contrasenia, $idRol) {
         $consulta = Consultas::INSERTAR_USUARIO($nombre, $apellido, $nombreUsuario, $email, $contrasenia);
-        return $this->conexion->insert($consulta);
-    }
-
-    private function obtenerRolLector() {
-        return $this->obtenerRolPorDescripcion("Lector");
+        $idUsuario = $this->conexion->insert($consulta);
+        $this->agregarRolUsuario($idRol, $idUsuario);
     }
 
     private function obtenerRolPorDescripcion($descripcion) {
         $consulta = Consultas::OBTENER_ROL_POR_DESCRIPCION($descripcion);
         $resultado = $this->conexion->query($consulta);
-        return  $resultado[0]['id'];
+        return  new Rol($resultado[0]['id'], $resultado[0]['descripcion']);
     }
 
     private function agregarRolUsuario($idRol, $idUsuario) {
@@ -81,5 +89,7 @@ class ModeloUsuario {
         }
         return $roles;
     }
+
+
 }
 ?>

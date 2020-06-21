@@ -9,13 +9,14 @@ class FormularioDeRegistro extends Formulario {
     private $email;
     private $password;
     private $passwordRepetida;
+    private $rol;
 
     public function obtenerCamposRequeridos() {
         return array("nombre", "apellido", "email", "password", "passwordRepetida");
     }
 
     public function obtenerTodosLosCampos() {
-        return array("nombre", "apellido", "nombreUsuario", "email", "password", "passwordRepetida");
+        return array("nombre", "apellido", "nombreUsuario", "email", "password", "passwordRepetida", "rol");
     }
 
     public function getNombreDeFormulario() {
@@ -72,6 +73,14 @@ class FormularioDeRegistro extends Formulario {
 
     public function getPasswordRepetida() {
         return $this->passwordRepetida;
+    }
+
+    public function getRol() {
+        return $this->rol;
+    }
+
+    public function setRol($rol) {
+        $this->rol = $rol;
     }
 }
 ?>

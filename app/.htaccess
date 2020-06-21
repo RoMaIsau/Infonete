@@ -6,6 +6,7 @@
 
     RewriteRule ^css/(.+)\.css /vistas/css/$1.css
     RewriteRule ^img/(.+)\.(.+) /vistas/img/$1.$2
+    RewriteRule ^font/(.+) /vistas/font/$1
 
     RewriteRule ^infonete/(.*)/(.*)/(.*)$ index.php?module=$1&action=$2&$3 [L,QSA]
     RewriteRule ^infonete/(.*)/(.*)$ index.php?module=$1&action=$2 [L,QSA]

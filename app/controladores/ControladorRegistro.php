@@ -3,6 +3,7 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/MensajeDeError.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRegistro.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Mapeador.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/excepciones/EmailEnUsoException.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/UsuarioLogueado.php");
 
 class ControladorRegistro {
 
@@ -34,9 +35,9 @@ class ControladorRegistro {
             if ($formularioDeRegistro->contraseniasIguales()) {
                 try {
                     $this->modeloUsuario->registrar($formularioDeRegistro);
-                    $data["usuario"] = $this->modeloUsuario->login($formularioDeRegistro->getEmail(),
+                    $usuario = $this->modeloUsuario->login($formularioDeRegistro->getEmail(),
                         $formularioDeRegistro->getPassword());
-                    $_SESSION["usuario"] = $data["usuario"];
+                    $_SESSION["usuario"] = serialize($usuario);
                     $this->renderizador->redirect("inicio");
                 } catch (EmailEnUsoException $e) {
                     $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");

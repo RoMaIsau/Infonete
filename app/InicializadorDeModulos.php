@@ -51,5 +51,10 @@ class InicializadorDeModulos {
         $modeloUsuario = new ModeloUsuario($this->baseDeDatos);
         return new ControladorAdministracion($modeloUsuario, $this->renderizador);
     }
+
+    public function crearControladorContenidista() {
+        include_once ("controladores/ControladorContenidista.php");
+        return new ControladorContenidista($this->renderizador);
+    }
 }
 ?>

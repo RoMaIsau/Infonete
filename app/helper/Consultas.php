@@ -45,5 +45,11 @@ SQL;
     INSERT INTO RolUsuario (idRol, idUsuario) VALUES ($idRol, $idUsuario);
 SQL;
     }
+
+    public static function OBTENER_ROLES() {
+        return <<< SQL
+    SELECT * FROM Rol;
+SQL;
+    }
 }
 ?>

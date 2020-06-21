@@ -51,5 +51,23 @@ SQL;
     SELECT * FROM Rol;
 SQL;
     }
+
+    public static function OBTENER_TIPOS_DE_PRODUCTOS() {
+        return <<< SQL
+    SELECT * FROM Tipo;
+SQL;
+    }
+
+    public static function INSERTAR_PRODUCTO($nombre, $tipoProducto, $idUsuario) {
+        return <<< SQL
+    INSERT INTO Producto (nombre, idUsuario, idTipo) VALUES('$nombre', $idUsuario, $tipoProducto);
+SQL;
+    }
+
+    public static function INSERTAR_DETALLE_PRODUCTO($precioMensual, $idProducto) {
+        return <<< SQL
+    INSERT INTO Detalle (fecha, precioMensual, idProducto) VALUES(now(), $precioMensual, $idProducto);
+SQL;
+    }
 }
 ?>

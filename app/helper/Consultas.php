@@ -69,5 +69,35 @@ SQL;
     INSERT INTO Detalle (fecha, precioMensual, idProducto) VALUES(now(), $precioMensual, $idProducto);
 SQL;
     }
+
+    public static function OBTENER_PRODUCTOS_POR_USUARIO($idContenidista){
+        return <<< SQL
+    SELECT p.id as id, p.nombre as nombre, t.nombre  as tipo, d.precioMensual  as precio FROM Producto p
+    JOIN Tipo t ON t.id  = p.idTipo
+    JOIN Detalle d ON d.idProducto = p.id
+    WHERE p.idUsuario = $idContenidista;
+SQL;
+    }
+
+    public static function OBTENER_PRODUCTO_POR_ID($idProducto) {
+        return <<< SQL
+    SELECT p.id as id, p.nombre as nombre, t.nombre  as tipo, d.precioMensual  as precio FROM Producto p
+    JOIN Tipo t ON t.id  = p.idTipo
+    JOIN Detalle d ON d.idProducto = p.id
+    WHERE p.id = $idProducto;
+SQL;
+    }
+
+    public static function INSERTAR_SECCION($nombre, $idProducto) {
+        return <<< SQL
+    INSERT INTO Seccion (nombre, idProducto) VALUES ('$nombre', $idProducto);
+SQL;
+    }
+
+    public static function OBTENER_SECCIONES_POR_PRODUCTO($idProducto) {
+        return <<< SQL
+    SELECT * FROM Seccion WHERE idProducto = $idProducto;
+SQL;
+    }
 }
 ?>

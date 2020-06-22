@@ -27,6 +27,37 @@ class ModeloProducto {
         return $idProducto;
     }
 
+    public function obtenerProductosPorUsuario($idContenidista) {
+        $productos = array();
+        $resultado = $this->conexion->query(Consultas::OBTENER_PRODUCTOS_POR_USUARIO($idContenidista));
+        for($i = 0; $i < count($resultado); $i++) {
+            $producto = $resultado[$i];
+            array_push($productos, new Producto($producto['id'], $producto['nombre'], $producto['tipo'], $producto['precio']));
+        }
+        return $productos;
+    }
+
+    public function obtenerProductoPorId($idProducto) {
+        $resultado = $this->conexion->query(Consultas::OBTENER_PRODUCTO_POR_ID($idProducto));
+        $producto = $resultado[0];
+        return new Producto($producto['id'], $producto['nombre'], $producto['tipo'], $producto['precio']);
+    }
+
+    public function agregarSeccionAProducto($nombre, $idProducto) {
+        return $this->conexion->insert(Consultas::INSERTAR_SECCION($nombre, $idProducto));
+    }
+
+    public function obtenerSeccionesPorProducto($idProducto) {
+        $resultado = $this->conexion->query(Consultas::OBTENER_SECCIONES_POR_PRODUCTO($idProducto));
+        $secciones = array();
+        for ($i = 0; $i < count($resultado); $i++) {
+            $seccion = $resultado[$i];
+            array_push($secciones, new Seccion($seccion['id'], $seccion['nombre'], $seccion['idProducto']));
+        }
+
+        return $secciones;
+    }
+
     private function crearDetalleProducto($idProducto, $precio) {
         $this->conexion->insert(Consultas::INSERTAR_DETALLE_PRODUCTO($precio, $idProducto));
     }

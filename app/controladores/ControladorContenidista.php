@@ -1,7 +1,10 @@
 <?php
 include_once ("$_SERVER[DOCUMENT_ROOT]/controladores/ControladorBasico.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/TipoProducto.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Producto.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Seccion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaProducto.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaSeccion.php");
 
 class ControladorContenidista extends ControladorBasico {
 
@@ -13,6 +16,11 @@ class ControladorContenidista extends ControladorBasico {
     }
 
     public function index() {
+
+        $idContenidista = $this->usuarioLogueado->id();
+        $productos = $this->modeloProducto->obtenerProductosPorUsuario($idContenidista);
+        $this->data['productos'] = $productos;
+
         echo $this->renderizador->renderizar('vistas/contenidista/index.php', $this->data);
     }
 
@@ -34,6 +42,29 @@ class ControladorContenidista extends ControladorBasico {
             $this->data['tiposDeProducto'] = $this->modeloProducto->obtenerTiposDeProducto();
             echo $this->renderizador->renderizar('vistas/contenidista/altaProducto.php', $this->data);
         }
+    }
+
+    public function editarProducto() {
+        $idProducto = $_GET['id'];
+        $formulario = new FormularioAltaSeccion();
+        $formulario->setIdProducto($idProducto);
+        $this->data['formulario'] = $formulario;
+        $this->data['producto'] = $this->modeloProducto->obtenerProductoPorId($idProducto);
+        $this->data['secciones'] = $this->modeloProducto->obtenerSeccionesPorProducto($idProducto);
+        echo $this->renderizador->renderizar('vistas/contenidista/editarProducto.php', $this->data);
+    }
+
+    public function agregarSeccion() {
+        $formulario = Mapeador::mapearPost("FormularioAltaSeccion");
+        $idProducto = $formulario->idProducto();
+        $nombre = $formulario->nombre();
+
+        if (!$formulario->esInvalido()) {
+
+            $this->modeloProducto->agregarSeccionAProducto($nombre, $idProducto);
+        }
+
+        $this->renderizador->redirect("contenidista/editarProducto?id=$idProducto");
     }
 }
 ?>

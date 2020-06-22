@@ -13,5 +13,5 @@ abstract class ControladorBasico {
             $this->data['usuario'] = $this->usuarioLogueado;
         }
     }
-
 }
+?>

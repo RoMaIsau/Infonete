@@ -11,3 +11,4 @@ class Configuracion{
         return $this->config[$section][$key];
     }
 }
+?>

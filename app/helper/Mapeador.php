@@ -28,3 +28,4 @@ class Mapeador {
         return 'set' . ucfirst($campo);
     }
 }
+?>

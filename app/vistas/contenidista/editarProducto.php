@@ -11,6 +11,7 @@
             <th>Fecha</th>
             <th>Precio</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
         {{#ediciones}}
         <tr>
@@ -19,6 +20,7 @@
             <td>{{fecha}}</td>
             <td>{{precio}}</td>
             <td>{{estado}}</td>
+            <td><a href="/infonete/contenidista/editarEdicion?id={{id}}">Editar</a></td>
         </tr>
         {{/ediciones}}
     </table>

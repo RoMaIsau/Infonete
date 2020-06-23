@@ -4,9 +4,11 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/TipoProducto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Producto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Seccion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Edicion.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/ImagenEnServer.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaProducto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaSeccion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioCrearEdicion.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRedaccion.php");
 
 class ControladorContenidista extends ControladorBasico {
 
@@ -78,6 +80,22 @@ class ControladorContenidista extends ControladorBasico {
         $formulario = Mapeador::mapearPost("FormularioCrearEdicion");
         $this->modeloProducto->crearEdicion($formulario->precio(), $formulario->idProducto());
         $this->renderizador->redirect("contenidista/editarProducto?id={$formulario->idProducto()}");
+    }
+
+    public function editarEdicion() {
+        $idEdicion = $_GET['id'];
+        $edicion = $this->modeloProducto->obtenerEdicionPorId($idEdicion);
+        $this->data['secciones'] = $this->modeloProducto->obtenerSeccionesPorProducto($edicion->producto()->id());
+        $this->data['edicion'] = $edicion;
+        echo $this->renderizador->renderizar("vistas/contenidista/editarEdicion.php", $this->data);
+    }
+
+    public function redactar() {
+        $formulario = Mapeador::mapearPost("FormularioDeRedaccion");
+        //TODO: CREAR OBJETO NOTICIA
+        $this->modeloProducto->crearNoticia($formulario->idEdicion(), $formulario->idSeccion(), $formulario->titulo(),
+            $formulario->subtitulo(), $formulario->contenido(), $formulario->imagenes(), $formulario->link(),
+            $formulario->linkVideo());
     }
 }
 ?>

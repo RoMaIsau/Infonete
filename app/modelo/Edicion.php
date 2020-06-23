@@ -5,6 +5,7 @@ class Edicion {
     private $fecha;
     private $precio;
     private $estado;
+    private $producto;
 
     function __construct($id, $numero, $fecha, $precio, $estado) {
         $this->id = $id;
@@ -32,6 +33,14 @@ class Edicion {
 
     public function estado() {
         return $this->estado;
+    }
+
+    public function agregarProducto($producto) {
+        $this->producto = $producto;
+    }
+
+    public function producto() {
+        return $this->producto;
     }
 }
 ?>

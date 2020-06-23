@@ -3,6 +3,8 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Consultas.php");
 
 class ModeloProducto {
 
+    const EDICION_EN_PROCESO = "EN PROCESO";
+
     private $conexion;
 
     public function __construct($baseDeDatos) {
@@ -58,7 +60,33 @@ class ModeloProducto {
         return $secciones;
     }
 
+    public function obtenerEdicionesPorProducto($idProducto) {
+        $resultado = $this->conexion->query(Consultas::OBTENER_EDICIONES_POR_PRODUCTO($idProducto));
+        $ediciones = array();
+        for ($i = 0; $i < count($resultado); $i++) {
+            $edicion = $resultado[$i];
+            array_push($ediciones, new Edicion($edicion['id'], $edicion['nro'], $edicion['fecha'], $edicion['precio'], $edicion['estado']));
+        }
+        return $ediciones;
+    }
+
+    public function crearEdicion($precio, $idProducto) {
+        $numero = $this->obtenerNumero($idProducto);
+        $estado = self::EDICION_EN_PROCESO;
+        $this->conexion->insert(Consultas::INSERTAR_EDICION($numero, $precio, $idProducto, $estado));
+    }
+
     private function crearDetalleProducto($idProducto, $precio) {
         $this->conexion->insert(Consultas::INSERTAR_DETALLE_PRODUCTO($precio, $idProducto));
     }
+
+    private function obtenerNumero($idProducto) {
+        $numero = 1;
+        $resultado = $this->conexion->query(Consultas::OBTENER_NUMERO_MAXIMO_DE_EDICION($idProducto));
+        if (!empty($resultado) && isset($resultado[0]['numero'])) {
+            $numero = $resultado[0]['numero'] + 1;
+        }
+        return $numero;
+    }
 }
+?>

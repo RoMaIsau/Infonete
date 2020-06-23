@@ -3,8 +3,10 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/controladores/ControladorBasico.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/TipoProducto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Producto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Seccion.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Edicion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaProducto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaSeccion.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioCrearEdicion.php");
 
 class ControladorContenidista extends ControladorBasico {
 
@@ -48,9 +50,14 @@ class ControladorContenidista extends ControladorBasico {
         $idProducto = $_GET['id'];
         $formulario = new FormularioAltaSeccion();
         $formulario->setIdProducto($idProducto);
-        $this->data['formulario'] = $formulario;
+        $this->data['formularioSeccion'] = $formulario;
         $this->data['producto'] = $this->modeloProducto->obtenerProductoPorId($idProducto);
         $this->data['secciones'] = $this->modeloProducto->obtenerSeccionesPorProducto($idProducto);
+        $this->data['ediciones'] = $this->modeloProducto->obtenerEdicionesPorProducto($idProducto);
+
+        $formularioEdicion = new FormularioCrearEdicion();
+        $formularioEdicion->setIdProducto($idProducto);
+        $this->data['formularioEdicion'] = $formularioEdicion;
         echo $this->renderizador->renderizar('vistas/contenidista/editarProducto.php', $this->data);
     }
 
@@ -65,6 +72,12 @@ class ControladorContenidista extends ControladorBasico {
         }
 
         $this->renderizador->redirect("contenidista/editarProducto?id=$idProducto");
+    }
+
+    public function crearEdicion() {
+        $formulario = Mapeador::mapearPost("FormularioCrearEdicion");
+        $this->modeloProducto->crearEdicion($formulario->precio(), $formulario->idProducto());
+        $this->renderizador->redirect("contenidista/editarProducto?id={$formulario->idProducto()}");
     }
 }
 ?>

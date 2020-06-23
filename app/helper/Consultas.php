@@ -99,5 +99,24 @@ SQL;
     SELECT * FROM Seccion WHERE idProducto = $idProducto;
 SQL;
     }
+
+    public static function OBTENER_EDICIONES_POR_PRODUCTO($idProducto) {
+        return <<< SQL
+    SELECT * FROM Edicion WHERE idProducto = $idProducto;
+SQL;
+    }
+
+    public static function OBTENER_NUMERO_MAXIMO_DE_EDICION($idProducto) {
+        return <<< SQL
+    SELECT MAX(nro) as numero from Edicion WHERE idProducto  = $idProducto;
+SQL;
+
+    }
+
+    public static function INSERTAR_EDICION($numero, $precio, $idProducto, $estado) {
+        return <<< SQL
+    INSERT INTO Edicion (nro, fecha, precio, idProducto, estado) VALUES($numero, now(), $precio, $idProducto, '$estado');
+SQL;
+    }
 }
 ?>

@@ -33,5 +33,9 @@ abstract class Formulario {
         $error = array('campo' => $campo, 'mensaje' => "Es requerido");
         array_push($this->camposInvalidos, $error);
     }
+
+    public function obtenerCamposDeImagenes() {
+        return array();
+    }
 }
 ?>

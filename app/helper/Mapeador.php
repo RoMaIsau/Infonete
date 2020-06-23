@@ -12,6 +12,17 @@ class Mapeador {
                 }
             }
         }
+        $camposDeImagenes = $formulario->obtenerCamposDeImagenes();
+        for($i = 0; $i < count($camposDeImagenes); $i++) {
+            $campoImagen = $camposDeImagenes[$i];
+            $cantidad = count($_FILES["$campoImagen"]['name']);
+            for ($j = 0; $j < $cantidad; $j++) {
+                $ubicacionTemporal = $_FILES["$campoImagen"]['tmp_name'][$j];
+                $nombre = $_FILES["$campoImagen"]['name'][$j];
+                $imagen = new ImagenEnServer($nombre, $ubicacionTemporal);
+                $formulario->agregarImagen($imagen);
+            }
+        }
         return $formulario;
     }
 

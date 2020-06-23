@@ -118,5 +118,40 @@ SQL;
     INSERT INTO Edicion (nro, fecha, precio, idProducto, estado) VALUES($numero, now(), $precio, $idProducto, '$estado');
 SQL;
     }
+
+    public static function OBTENER_EDICION_POR_ID($idEdicion) {
+        return <<< SQL
+    SELECT e.id as id, e.nro as nro, e.fecha as fecha, e.precio as precio, e.estado as estado,
+     p.id as idProducto, p.nombre as nombreProducto,
+     t.nombre as tipo,
+     d.precioMensual as precioProducto
+    FROM Edicion e
+    JOIN Producto p ON p.id = e.idProducto
+    JOIN Tipo t ON t.id = p.idTipo
+    JOIN Detalle d ON d.idProducto = p.id
+    WHERE e.id = $idEdicion;
+SQL;
+    }
+
+    public static function INSERTAR_NOTICIA($idEdicion, $idSeccion, $titulo,
+        $subtitulo, $contenido, $link, $linkVideo) {
+        return <<< SQL
+    INSERT INTO Noticia (idEdicion, idSeccion, titulo, subtitulo, contenido, link, linkVideo)
+    VALUES ($idEdicion, $idSeccion, '$titulo', '$subtitulo', '$contenido', '$link', '$linkVideo');
+SQL;
+
+    }
+
+    public static function INSERTAR_IMAGEN($ubicacion) {
+        return <<< SQL
+    INSERT INTO Imagen (ubicacion) VALUES ('$ubicacion');
+SQL;
+    }
+
+    public static function INSERTAR_IMAGEN_POR_NOTICIA($idNoticia, $idImagen) {
+        return <<< SQL
+    INSERT INTO ImagenPorNoticia (idNoticia, idImagen) VALUES ($idNoticia, $idImagen);
+SQL;
+    }
 }
 ?>

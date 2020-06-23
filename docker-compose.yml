@@ -29,6 +29,7 @@ services:
       - "${PHP_SECURE_PORT}:443"
     volumes:
       - ./app/:/var/www/html
+      - ./app/imagenes:/var/imagenes
     links:
       - MySql
     command: sh ./docker-scripts/docker-php.sh

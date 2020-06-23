@@ -75,6 +75,7 @@ id integer AUTO_INCREMENT,
 nro integer,
 fecha date,
 precio decimal(8,2),
+estado varchar(20),
 idProducto integer,
 primary key(id),
 foreign key(idProducto) references Producto(id));
@@ -91,13 +92,13 @@ foreign key(idEdicion) references Edicion(id));
 
 create table Noticia(
 id integer AUTO_INCREMENT,
-contenido varchar(100),
-subtitulo varchar(100),
-titulo varchar(100),
-linkVideo varchar(100),
+contenido varchar(255),
+subtitulo varchar(50),
+titulo varchar(50),
+linkVideo varchar(50),
 longitud decimal(9,6),
 latitud decimal(9,6),
-link varchar(100),
+link varchar(50),
 idEdicion integer,
 idSeccion integer,
 primary key(id),
@@ -106,7 +107,7 @@ foreign key(idSeccion) references Seccion(id));
 
 create table Imagen(
 id integer AUTO_INCREMENT,
-ubicacion varchar(100),
+ubicacion varchar(50),
 primary key(id)
 );
 

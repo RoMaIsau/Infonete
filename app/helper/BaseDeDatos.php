@@ -21,6 +21,16 @@ class BaseDeDatos {
         return $resultAsAssocArray;
     }
 
+    public function obtenerUnUnicoResultado($sql) {
+        $resultado = $this->query($sql);
+        if (empty($resultado)) {
+            die("Se esperaba un resultado pero no llegó ninguno: " . $sql);
+        } else if (count($resultado) > 1) {
+            die("Se esperaba un resultado pero llegaron: " . count($resultado) . ' ' . $sql);
+        }
+        return $resultado[0];
+    }
+
     public function insert($sql) {
         if (mysqli_query($this->connexion, $sql) == false) {
             die("Error insertando datos en la consulta : " . $sql . "Error: " . mysqli_error($this->connexion));

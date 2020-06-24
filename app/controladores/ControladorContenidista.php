@@ -15,10 +15,12 @@ class ControladorContenidista extends ControladorBasico {
 
     private $modeloProducto;
     private $modeloNoticias;
+    private $modeloEdicionesEnProceso;
 
-    public function __construct($modeloProducto, $modeloNoticias, $renderizador) {
+    public function __construct($modeloProducto, $modeloNoticias, $modeloEdicionesEnProceso, $renderizador) {
         $this->modeloProducto = $modeloProducto;
         $this->modeloNoticias = $modeloNoticias;
+        $this->modeloEdicionesEnProceso = $modeloEdicionesEnProceso;
         $this->renderizador = $renderizador;
     }
 
@@ -101,6 +103,12 @@ class ControladorContenidista extends ControladorBasico {
             $formulario->subtitulo(), $formulario->contenido(), $formulario->imagenes(), $formulario->link(),
             $formulario->linkVideo());
         echo $this->renderizador->redirect("contenidista/editarEdicion?id={$formulario->idEdicion()}");
+    }
+
+    public function publicarEdicion() {
+        $idEdicion = $_POST['idEdicion'];
+        $this->modeloEdicionesEnProceso->publicarEdicion($idEdicion);
+        echo $this->renderizador->redirect("contenidista/editarEdicion?id=$idEdicion");
     }
 }
 ?>

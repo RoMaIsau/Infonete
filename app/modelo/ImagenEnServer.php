@@ -11,8 +11,9 @@ class ImagenEnServer {
     }
 
     public function guardar($ubicacion) {
-        $this->ubicacion = $ubicacion . '/' . $this->nombre;
-        move_uploaded_file($this->ubicacionTemporal, $this->ubicacion);
+        $path = $ubicacion . '/' . $this->nombre;
+        move_uploaded_file($this->ubicacionTemporal, $path);
+        $this->ubicacion = '/' . $path;
     }
 
     public function ubicacion() {

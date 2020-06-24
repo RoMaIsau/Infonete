@@ -5,6 +5,7 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Producto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Seccion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/Edicion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/ImagenEnServer.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/modelo/VistaPreviaNoticia.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaProducto.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioAltaSeccion.php");
 include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioCrearEdicion.php");
@@ -13,9 +14,11 @@ include_once ("$_SERVER[DOCUMENT_ROOT]/formularios/FormularioDeRedaccion.php");
 class ControladorContenidista extends ControladorBasico {
 
     private $modeloProducto;
+    private $modeloNoticias;
 
-    public function __construct($modeloProducto, $renderizador) {
+    public function __construct($modeloProducto, $modeloNoticias, $renderizador) {
         $this->modeloProducto = $modeloProducto;
+        $this->modeloNoticias = $modeloNoticias;
         $this->renderizador = $renderizador;
     }
 
@@ -86,16 +89,18 @@ class ControladorContenidista extends ControladorBasico {
         $idEdicion = $_GET['id'];
         $edicion = $this->modeloProducto->obtenerEdicionPorId($idEdicion);
         $this->data['secciones'] = $this->modeloProducto->obtenerSeccionesPorProducto($edicion->producto()->id());
+        $this->data['vistaPreviaNoticias'] = $this->modeloNoticias->obtenerVistaPreviaDeNoticiasPorEdicion($idEdicion);
         $this->data['edicion'] = $edicion;
+
         echo $this->renderizador->renderizar("vistas/contenidista/editarEdicion.php", $this->data);
     }
 
     public function redactar() {
         $formulario = Mapeador::mapearPost("FormularioDeRedaccion");
-        //TODO: CREAR OBJETO NOTICIA
         $this->modeloProducto->crearNoticia($formulario->idEdicion(), $formulario->idSeccion(), $formulario->titulo(),
             $formulario->subtitulo(), $formulario->contenido(), $formulario->imagenes(), $formulario->link(),
             $formulario->linkVideo());
+        echo $this->renderizador->redirect("vistas/contenidista/editarEdicion?id={$formulario->idEdicion()}");
     }
 }
 ?>

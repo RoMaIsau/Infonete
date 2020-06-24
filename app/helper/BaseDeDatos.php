@@ -38,6 +38,12 @@ class BaseDeDatos {
         return $this->getLastId();
     }
 
+    public function update($sql) {
+        if (mysqli_query($this->connexion, $sql) == false) {
+            die("Error actualizando datos en la consulta : " . $sql . "Error: " . mysqli_error($this->connexion));
+        }
+    }
+
     private function getLastId() {
         return mysqli_insert_id($this->connexion);
     }

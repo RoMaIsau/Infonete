@@ -1,6 +1,4 @@
 <?php
-include_once ("$_SERVER[DOCUMENT_ROOT]/helper/Consultas.php");
-
 class ModeloProducto {
 
     const EDICION_EN_PROCESO = "EN PROCESO";

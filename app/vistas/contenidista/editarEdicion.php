@@ -29,16 +29,20 @@
     </div>
     <div class="container-fluid mt-2">
         <h2>Noticias redactadas</h2>
-        {{#vistaPreviaNoticias}}
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="{{ubicacion}}" alt="{{ubicacion}}">
-            <div class="card-body">
-                <h5 class="card-title">{{titulo}}</h5>
-                <p class="card-text">{{seccion}}</p>
-                <a href="#" class="btn btn-primary">Ver</a>
-            </div>
+        <div class="card-deck">
+            {{#vistaPreviaNoticias}}
+                <div class="card">
+                    <div class="embed-responsive embed-responsive-16by9">
+                    <img class="card-img-top embed-responsive-item" src="{{ubicacion}}" alt="{{ubicacion}}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{titulo}}</h5>
+                        <p class="card-text">{{seccion}}</p>
+                        <a href="#" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+            {{/vistaPreviaNoticias}}
         </div>
-        {{/vistaPreviaNoticias}}
     </div>
     <div class="container-fluid mt-2">
         <h2>Redacción de noticia</h2>

@@ -2,9 +2,8 @@
 require_once("helper/Renderizador.php");
 include_once ("helper/BaseDeDatos.php");
 include_once ("helper/Configuracion.php");
+include_once ("helper/Consultas.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
-
-
 class InicializadorDeModulos {
 
     private $renderizador;
@@ -55,8 +54,10 @@ class InicializadorDeModulos {
     public function crearControladorContenidista() {
         include_once ("controladores/ControladorContenidista.php");
         include_once ("modelo/ModeloProducto.php");
+        include_once ("modelo/ModeloNoticias.php");
         $modeloProducto = new ModeloProducto($this->baseDeDatos);
-        return new ControladorContenidista($modeloProducto, $this->renderizador);
+        $modeloNoticias = new ModeloNoticias($this->baseDeDatos);
+        return new ControladorContenidista($modeloProducto, $modeloNoticias, $this->renderizador);
     }
 }
 ?>

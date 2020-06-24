@@ -153,5 +153,21 @@ SQL;
     INSERT INTO ImagenPorNoticia (idNoticia, idImagen) VALUES ($idNoticia, $idImagen);
 SQL;
     }
+
+    public static function OBTENER_NOTICIAS_POR_EDICION($idEdicion) {
+        return <<< SQL
+    SELECT n.id as id, n.titulo as titulo, s.nombre as seccion FROM Noticia n
+    JOIN Seccion s ON s.id = n.IdSeccion;
+SQL;
+    }
+
+    public static function OBTENER_PRIMER_IMAGEN_DE_NOTICIA($idNoticia) {
+        return <<< SQL
+    SELECT im.ubicacion FROM ImagenPorNoticia i
+    JOIN Imagen im ON im.id = i.idImagen
+    WHERE i.idNoticia  = $idNoticia LIMIT 1;
+SQL;
+
+    }
 }
 ?>

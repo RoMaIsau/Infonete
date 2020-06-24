@@ -11,6 +11,7 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,14 @@
                 <td>{{precio}}</td>
                 <td>{{fecha}}</td>
                 <td>{{estado}}</td>
+                <td>
+                    {{#puedePublicarse}}
+                        <form action="/infonete/contenidista/publicarEdicion" method="POST">
+                            <input type="hidden" name="idEdicion" value="{{id}}">
+                            <button type="submit" class="btn btn-primary btn-sm">Publicar</button>
+                        </form>
+                    {{/puedePublicarse}}
+                </td>
             </tr>
             {{/edicion}}
             </tbody>

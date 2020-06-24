@@ -18,10 +18,12 @@
             <td>{{precio}}</td>
             <td>{{estado}}</td>
             <td>
+                {{#puedeAprobarse}}
                 <form action="/infonete/administracion/aprobarEdicion" method="POST">
                     <input type="hidden" name="idEdicion" value="{{id}}">
                     <button type="submit" class="btn btn-primary btn-sm">Aprobar</button>
                 </form>
+                {{/puedeAprobarse}}
             </td>
         </tr>
         {{/ediciones}}

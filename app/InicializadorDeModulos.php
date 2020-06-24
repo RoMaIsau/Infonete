@@ -60,9 +60,12 @@ class InicializadorDeModulos {
         include_once ("controladores/ControladorContenidista.php");
         include_once ("modelo/ModeloProducto.php");
         include_once ("modelo/ModeloNoticias.php");
+        include_once ("modelo/EstadoEdicion.php");
+        include_once ("modelo/ModeloEdicionesEnProceso.php");
         $modeloProducto = new ModeloProducto($this->baseDeDatos);
         $modeloNoticias = new ModeloNoticias($this->baseDeDatos);
-        return new ControladorContenidista($modeloProducto, $modeloNoticias, $this->renderizador);
+        $modeloEdicionesEnProceso = new ModeloEdicionesEnProceso(($this->baseDeDatos));
+        return new ControladorContenidista($modeloProducto, $modeloNoticias, $modeloEdicionesEnProceso, $this->renderizador);
     }
 }
 ?>

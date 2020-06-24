@@ -1,19 +1,20 @@
 {{>header}}
 <div class="container-fluid mt-4">
-    <h2>Detalle de edición</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Número</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Estado</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#edicion}}
+    <div class="container-fluid mt-z">
+        <h2>Detalle de edición</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Número</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#edicion}}
             <tr>
                 <th scope="row">{{numero}}</th>
                 <td>{{#producto}}{{nombre}}{{/producto}}</td>
@@ -22,10 +23,24 @@
                 <td>{{fecha}}</td>
                 <td>{{estado}}</td>
             </tr>
-        {{/edicion}}
-        </tbody>
-    </table>
-    <div class="container-fluid mt-4">
+            {{/edicion}}
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid mt-2">
+        <h2>Noticias redactadas</h2>
+        {{#vistaPreviaNoticias}}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ubicacion}}" alt="{{ubicacion}}">
+            <div class="card-body">
+                <h5 class="card-title">{{titulo}}</h5>
+                <p class="card-text">{{seccion}}</p>
+                <a href="#" class="btn btn-primary">Ver</a>
+            </div>
+        </div>
+        {{/vistaPreviaNoticias}}
+    </div>
+    <div class="container-fluid mt-2">
         <h2>Redacción de noticia</h2>
         <form action="/infonete/contenidista/redactar" enctype="multipart/form-data" method="post">
             <input type="hidden" name="idEdicion" value="{{#edicion}}{{id}}{{/edicion}}">

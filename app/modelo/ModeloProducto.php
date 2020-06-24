@@ -2,7 +2,6 @@
 class ModeloProducto {
 
     const EDICION_EN_PROCESO = "EN PROCESO";
-    const UBICACION_IMAGENES = "imagenes";
 
     private $conexion;
 
@@ -96,24 +95,6 @@ class ModeloProducto {
         $edicion = new Edicion($edicion['id'], $edicion['nro'], $edicion['fecha'], $edicion['precio'], $edicion['estado']);
         $edicion->agregarProducto($producto);
         return $edicion;
-    }
-
-    public function crearNoticia($idEdicion, $idSeccion, $titulo, $subtitulo, $contenido, $imagenes,
-        $link, $linkVideo) {
-
-        $idNoticia = $this->conexion->insert(Consultas::INSERTAR_NOTICIA($idEdicion, $idSeccion, $titulo,
-            $subtitulo, $contenido, $link, $linkVideo));
-
-        for ($i = 0; $i < count($imagenes); $i++) {
-            $imagen = $imagenes[$i];
-            $imagen->guardar(self::UBICACION_IMAGENES);
-            $this->guardarImagen($idNoticia, $imagen);
-        }
-    }
-
-    private function guardarImagen($idNoticia, $imagen) {
-        $idImagen = $this->conexion->insert(Consultas::INSERTAR_IMAGEN($imagen->ubicacion()));
-        $this->conexion->insert(Consultas::INSERTAR_IMAGEN_POR_NOTICIA($idNoticia, $idImagen));
     }
 }
 ?>

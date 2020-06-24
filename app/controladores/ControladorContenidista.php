@@ -97,10 +97,10 @@ class ControladorContenidista extends ControladorBasico {
 
     public function redactar() {
         $formulario = Mapeador::mapearPost("FormularioDeRedaccion");
-        $this->modeloProducto->crearNoticia($formulario->idEdicion(), $formulario->idSeccion(), $formulario->titulo(),
+        $this->modeloNoticias->crearNoticia($formulario->idEdicion(), $formulario->idSeccion(), $formulario->titulo(),
             $formulario->subtitulo(), $formulario->contenido(), $formulario->imagenes(), $formulario->link(),
             $formulario->linkVideo());
-        echo $this->renderizador->redirect("vistas/contenidista/editarEdicion?id={$formulario->idEdicion()}");
+        echo $this->renderizador->redirect("contenidista/editarEdicion?id={$formulario->idEdicion()}");
     }
 }
 ?>

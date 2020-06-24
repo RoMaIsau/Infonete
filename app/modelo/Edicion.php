@@ -42,5 +42,13 @@ class Edicion {
     public function producto() {
         return $this->producto;
     }
+
+    public function puedePublicarse() {
+        return $this->estado == EstadoEdicion::EN_PROCESO();
+    }
+
+    public function puedeAprobarse() {
+        return $this->estado == EstadoEdicion::PENDIENTE();
+    }
 }
 ?>

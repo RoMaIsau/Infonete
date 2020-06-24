@@ -167,7 +167,18 @@ SQL;
     JOIN Imagen im ON im.id = i.idImagen
     WHERE i.idNoticia  = $idNoticia LIMIT 1;
 SQL;
+    }
 
+    public static function OBTENER_EDICIONES_POR_ESTADO($estado) {
+        return <<< SQL
+    SELECT * FROM Edicion WHERE estado = '$estado';
+SQL;
+    }
+
+    public static function ACTUALIZAR_ESTADO_EDICION($idEdicion, $estado) {
+        return <<< SQL
+    UPDATE Edicion SET estado = '$estado' WHERE id = $idEdicion; 
+SQL;
     }
 }
 ?>

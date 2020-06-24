@@ -3,6 +3,7 @@ require_once("helper/Renderizador.php");
 include_once ("helper/BaseDeDatos.php");
 include_once ("helper/Configuracion.php");
 include_once ("helper/Consultas.php");
+include_once ("controladores/ControladorBasico.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 class InicializadorDeModulos {
 
@@ -47,8 +48,12 @@ class InicializadorDeModulos {
     public function crearControladorAdministracion() {
         include_once ("controladores/ControladorAdministracion.php");
         include_once ("modelo/ModeloUsuario.php");
+        include_once ("modelo/ModeloEdicionesPendientes.php");
+        include_once ("modelo/EstadoEdicion.php");
+        include_once ("modelo/Edicion.php");
         $modeloUsuario = new ModeloUsuario($this->baseDeDatos);
-        return new ControladorAdministracion($modeloUsuario, $this->renderizador);
+        $modeloEdicionesPendientes = new ModeloEdicionesPendientes($this->baseDeDatos);
+        return new ControladorAdministracion($modeloUsuario, $modeloEdicionesPendientes, $this->renderizador);
     }
 
     public function crearControladorContenidista() {

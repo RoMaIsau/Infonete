@@ -31,6 +31,8 @@ class ControladorAdministracion {
     public function registrarUsuario(){
         $formulario = Mapeador::mapearPost("FormularioDeRegistro");
         $vista = 'vistas/altaUsuario.php';
+        $data['roles'] = $this->modeloUsuario->listarRoles();
+        $data['formulario'] = $formulario;
 
         if (!$formulario->esInvalido()) {
 
@@ -40,16 +42,10 @@ class ControladorAdministracion {
                     $this->renderizador->redirect("administracion");
                 } catch (EmailEnUsoException $e) {
                     $data["error"] = new MensajeDeError("El email ingresado ya esta en uso");
-                    $roles = $this->modeloUsuario->listarRoles();
-                    $data['roles'] = $roles;
-                    $data['formulario'] = $formulario;
                 }
+            } else {
+                $data["error"] = new MensajeDeError("Las contraseñas ingresadas no son iguales");
             }
-
-        } else {
-            $roles = $this->modeloUsuario->listarRoles();
-            $data['roles'] = $roles;
-            $data['formulario'] = $formulario;
         }
         echo $this->renderizador->renderizar($vista, $data);
     }
